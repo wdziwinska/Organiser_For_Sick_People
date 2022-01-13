@@ -20,6 +20,9 @@ class MainWindow(Screen):
 class SecondWindow(Screen):
     pass
 
+class PlotWindow(Screen):
+    pass
+
 class WindowManager(ScreenManager):
     pass
 

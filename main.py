@@ -3,16 +3,18 @@ from kivy.lang import Builder
 from Notifier import Notifier
 from Schedule import Schedule
 from MyApp import MyApp
+from Calendar import Calendar
 
 from datetime import datetime, timedelta
 
 class Main(object):
         notifier = Notifier()
         schedule = Schedule()
-        myApp = MyApp()
+    #    myApp = MyApp()
 
-        app1 = myApp.build()
+     #   app1 = myApp.build()
 
+        calendar = Calendar()
 
         # app2 = myApp.button2()
 
