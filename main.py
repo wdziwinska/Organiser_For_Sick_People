@@ -1,3 +1,5 @@
+from kivy.lang import Builder
+
 from Notifier import Notifier
 from Schedule import Schedule
 from MyApp import MyApp
@@ -9,7 +11,10 @@ class Main(object):
         schedule = Schedule()
         myApp = MyApp()
 
-        app = myApp.build()
+        app1 = myApp.build()
+
+
+        # app2 = myApp.button2()
 
         alarm = schedule.setTime()
         # while alarm != datetime.now():
