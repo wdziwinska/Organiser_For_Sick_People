@@ -1,13 +1,17 @@
 from Notifier import Notifier
 from Schedule import Schedule
+from MyApp import MyApp
 
 from datetime import datetime, timedelta
 
 class Main(object):
         notifier = Notifier()
         schedule = Schedule()
-        alarm = schedule.setTime()
+        myApp = MyApp()
 
+        app = myApp.build()
+
+        alarm = schedule.setTime()
         # while alarm != datetime.now():
         #         print("")
         print(alarm)
