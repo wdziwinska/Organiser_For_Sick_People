@@ -1,31 +1,47 @@
-Screen:
+WindowManager:
+    MainWindow:
+    SecondWindow:
+
+<MainWindow>:
+    name: "main"
 
     Button:
         text: '        Ustaw \n przypomnienie'
-      #  pos_hint: {"y": 0, "bottom": 1}
-        pos: "100dp", "100dp"
+        pos_hint: {'center_x': 0.2, 'center_y': 0.1}
+     #   pos: "100dp", "100dp"
         size_hint: .2, .1
         background_color: 0, 0, 1, 1
-        size: 300, 200
-        on_press: app.pressButtonUstawPrzypomnienie()
-        on_release: app.releaseButton()
+        size: "20dp", "10dp"
+        on_release:
+            app.root.current = "second"
+            root.manager.transition.direction = "left"
 
     Button:
         text: 'Kalendarz'
-       # pos_hint: {"x": 0, "right": 1}
+        pos_hint: {'center_x': 0.5, 'center_y': 0.1}
         size_hint: .2, .1
-        size: "20dp", "10dp"
-        pos: "300dp", "100dp"
+        size: "10dp", "10dp"
+      #  pos: "100dp", "100dp"
         background_color: 0, 0, 1, 1
-        on_press: app.pressButton()
-        on_release: app.releaseButton()
-
+        on_release:
+            app.root.current = "second"
+            root.manager.transition.direction = "left"
     Button:
         text: 'Wykresy'
-     #   pos_hint: {"x": 0, "top": 1}
+        pos_hint: {'center_x': 0.8, 'center_y': 0.1}
         size_hint: .2, .1
         size: "20dp", "10dp"
         pos: "500dp", "100dp"
         background_color: 0, 0, 1, 1
-        on_press: app.pressButton()
-        on_release: app.releaseButton()
+        on_release:
+            app.root.current = "second"
+            root.manager.transition.direction = "left"
+
+<SecondWindow>:
+    name: "second"
+
+    Button:
+        text: "Go Back"
+        on_release:
+            app.root.current = "main"
+            root.manager.transition.direction = "right"
