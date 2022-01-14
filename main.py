@@ -1,20 +1,24 @@
+import time
+
 from kivy.lang import Builder
 
 from Notifier import Notifier
 from Schedule import Schedule
-# from MyApp import MyApp
+from MyApp import MyApp
 
-from FirstScreen import FirstScreen
+# from FirstScreen import FirstScreen
 
 from datetime import datetime, timedelta
+
+from Calendar import Calendar
 
 class Main(object):
     #     notifier = Notifier()
     #     schedule = Schedule()
-    # #    myApp = MyApp()
+        myApp = MyApp()
     #
-    #  #   app1 = myApp.build()
-    #
+        # app1 = myApp.build()
+
     #     # app2 = myApp.button2()
     #
     #     alarm = schedule.setTime()
@@ -24,8 +28,9 @@ class Main(object):
     #     notifier.getReminderAbMedicines()
 
         #tkinter screen
-        firstScreen = FirstScreen()
-
+        # calendar = Calendar()
+        # firstScreen = FirstScreen()
+#
 
 #-------------------------------
 #tkinter
