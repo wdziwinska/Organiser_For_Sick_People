@@ -2,11 +2,10 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivymd.app import MDApp
 from kivymd.uix.picker import MDDatePicker, MDTimePicker
-from kivymd.theming import ThemeManager
-
-
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.core.window import Window
+
+from Reminder import Reminder
 
 Window.size = (750, 450)
 
@@ -16,7 +15,7 @@ class MainWindow(Screen):
     def pressButtonUstawPrzypomnienie(self, *args):
         print("Przycik został wciśnięty")
 
-        cal = Calendar()
+        cal = DateAndTimePicker()
         cal.show_date_picker()
 
 
@@ -32,11 +31,13 @@ class WindowManager(ScreenManager):
     pass
 
 
-kv = Builder.load_file("AppDesign.kv")
+class DateAndTimePicker(MDApp):
 
-class Calendar(MDApp):
+    def callback(self):
+        print("dypa")
 
     def saveTime(self, instance, time):
+        reminder = Reminder(str(time), self.callback)
         print(str(time))
 
     def cancelTime(self, instance, time):
@@ -65,19 +66,20 @@ class Calendar(MDApp):
         date_dialog.bind(on_save=self.on_save, on_cancel = self.on_cancel)
         date_dialog.open()
 
+
 if __name__ == "main":
-    Calendar().run()
+    DateAndTimePicker().run()
 
 
 class MyApp(App):
 
     def build(self):
-        return kv
+        return Builder.load_file("AppDesign.kv")
 
     def pressButton(self, *args):
         print("Przycik został wciśnięty")
 
     def releaseButton(self, *args):
         print("Przycik został puszczony")
-MyApp().run()
+
 

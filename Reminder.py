@@ -18,10 +18,3 @@ class Reminder:
 
     def deactivate(self):
         self._active = False
-
-reminder = Reminder("02:00", lambda: print("test"))
-# mySchedule.deactivate()
-
-while True:
-    schedule.run_pending()
-    time.sleep(1)
