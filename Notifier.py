@@ -2,9 +2,9 @@ from plyer import notification
 
 
 class Notifier:
-    def getReminderAbMedicines(self):
+    def notify(self, msgHeader, msg):
         notification.notify(
-            title = "Przypomnienie o lakach",
-            message = "Weź leki",
+            title = msgHeader,
+            message = msg,
             timeout = 100
         )
