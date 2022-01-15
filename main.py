@@ -1,7 +1,7 @@
 import time
 import schedule
 
-from MyApp import MyApp, DateAndTimePicker
+from MyApp import MyApp
 import _thread
 
 from Notifier import Notifier
@@ -24,6 +24,4 @@ class Main(object):
     notifier = Notifier()
 
     myApp.run()
-    DateAndTimePicker().run()
-
     print("dupa3")
