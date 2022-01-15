@@ -19,7 +19,7 @@ class Reminder:
     def deactivate(self):
         self._active = False
 
-reminder = Reminder("01:54", lambda: print("test"))
+reminder = Reminder("02:00", lambda: print("test"))
 # mySchedule.deactivate()
 
 while True:

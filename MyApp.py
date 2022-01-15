@@ -1,74 +1,83 @@
-# #kivy
-import kivy
 from kivy.app import App
 from kivy.lang import Builder
-from kivy.uix.button import Button
-from kivy.uix.widget import Widget
+from kivymd.app import MDApp
+from kivymd.uix.picker import MDDatePicker, MDTimePicker
+from kivymd.theming import ThemeManager
+
+
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.core.window import Window
-from Notifier import Notifier
-from Schedule import Schedule
-
 
 Window.size = (750, 450)
 
-# class Screen(Widget):
-#     pass #it means that is not implemented yet, but i want to implement in future
 
 class MainWindow(Screen):
+
     def pressButtonUstawPrzypomnienie(self, *args):
         print("Przycik został wciśnięty")
+
+        cal = Calendar()
+        cal.show_date_picker()
+
 
 class SecondWindow(Screen):
     pass
 
+
 class PlotWindow(Screen):
     pass
+
 
 class WindowManager(ScreenManager):
     pass
 
+
 kv = Builder.load_file("AppDesign.kv")
 
+class Calendar(MDApp):
+
+    def saveTime(self, instance, time):
+        print(str(time))
+
+    def cancelTime(self, instance, time):
+        print("You clicked cancel!")
+
+    def show_time_picker(self):
+        from datetime import datetime
+        time_dialog = MDTimePicker()
+        time_dialog.bind(on_save=self.saveTime, on_cancel=self.cancelTime)
+        time_dialog.open()
+
+    def on_save(self, instance, value, date_range):
+        # print(instance, value, date_range)
+        print(str(value))
+        # self.root.ids.date_label.text = str(value)
+        # self.root.ids.date_label.text = f'{str(date_range[0])} - {str(date_range[-1])}'
+        self.show_time_picker()
+
+    def on_cancel(self, instance, value):
+        print("You clicked cancel!")
+
+    def show_date_picker(self):
+        self.theme_cls.theme_style = "Dark"
+        self.theme_cls.primary_palette = "Blue"
+        date_dialog = MDDatePicker(mode="range")
+        date_dialog.bind(on_save=self.on_save, on_cancel = self.on_cancel)
+        date_dialog.open()
+
+if __name__ == "main":
+    Calendar().run()
+
+
 class MyApp(App):
-    # schedule = Schedule()
 
     def build(self):
         return kv
-        # return Button (text = "         Ustaw \n przypomnienie",
-        #                font_size = "18sp",
-        #                background_color = (0, 0, 1, 1),
-        #                color = (1, 1, 1, 1),
-        #                size = (100,25),
-        #                size_hint=(.18, .08),
-        #                pos = (300, 500),
-        #                pos_hint = {'center_x': 0.2, 'center_y': 0.1},
-        #                on_press = self.pressButton,
-        #                on_release = self.releaseButton)
-    # def button2(self):
-    #     return Button(text="Kalendarz",
-    #                      font_size="18sp",
-    #                      background_color=(0, 0, 1, 1),
-    #                      color=(1, 1, 1, 1),
-    #                      size=(100, 25),
-    #                      size_hint=(.18, .08),
-    #                      pos=(300, 500),
-    #                      pos_hint={'center_x': 0.5, 'center_y': 0.1})
-
-
-        # schedule = Schedule()
-        # schedule.setTime()
-
-        # calendar = Calendar()
-        # notifier = Notifier()
-        # notifier.getReminderAbMedicines()
 
     def pressButton(self, *args):
         print("Przycik został wciśnięty")
 
     def releaseButton(self, *args):
         print("Przycik został puszczony")
-
 MyApp().run()
-
 

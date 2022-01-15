@@ -15,8 +15,6 @@ WindowManager:
         size: "20dp", "10dp"
         on_release:
             root.pressButtonUstawPrzypomnienie()
-#            app.root.current = "second"
-#            root.manager.transition.direction = "left"
 
     Button:
         text: 'Kalendarz'
@@ -26,8 +24,8 @@ WindowManager:
       #  pos: "100dp", "100dp"
         background_color: 0, 0, 1, 1
         on_release:
-            app.root.current = "second"
-            root.manager.transition.direction = "left"
+            app.root.current = 'second'
+        #    root.manager.transition.direction = "left"
     Button:
         text: 'Wykresy'
         pos_hint: {'center_x': 0.8, 'center_y': 0.1}
@@ -40,7 +38,7 @@ WindowManager:
             root.manager.transition.direction = "left"
 
 <SecondWindow>:
-    name: "second"
+    name: 'second'
 
     Label:
         text: "Wybierz dzień \n (dd.mm.yyyy)"

@@ -1,5 +1,5 @@
-import time
 from plyer import notification
+
 
 class Notifier:
     def getReminderAbMedicines(self):
