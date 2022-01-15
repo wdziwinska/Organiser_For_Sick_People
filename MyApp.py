@@ -33,6 +33,9 @@ class WindowManager(ScreenManager):
 
 class DateAndTimePicker(MDApp):
 
+    # def __init__(self, notifier):
+    #     _notifier = notifier
+
     def callback(self):
         print("dypa")
 
@@ -65,10 +68,6 @@ class DateAndTimePicker(MDApp):
         date_dialog = MDDatePicker(mode="range")
         date_dialog.bind(on_save=self.on_save, on_cancel = self.on_cancel)
         date_dialog.open()
-
-
-if __name__ == "main":
-    DateAndTimePicker().run()
 
 
 class MyApp(App):

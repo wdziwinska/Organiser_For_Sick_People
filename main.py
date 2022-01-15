@@ -1,8 +1,11 @@
 import time
 import schedule
 
-from MyApp import MyApp
+from MyApp import MyApp, DateAndTimePicker
 import _thread
+
+from Notifier import Notifier
+
 
 def print_time( threadName, delay):
    while True:
@@ -18,6 +21,9 @@ class Main(object):
 
     print("dupa2")
 
+    notifier = Notifier()
+
     myApp.run()
+    DateAndTimePicker().run()
 
     print("dupa3")
