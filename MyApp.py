@@ -6,6 +6,7 @@ from kivymd.uix.picker import MDDatePicker, MDTimePicker
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.core.window import Window
 
+from Notifier import Notifier
 from Reminder import Reminder
 
 Window.size = (750, 450)
@@ -25,13 +26,13 @@ class WindowManager(ScreenManager):
 
 class MyApp(MDApp):
 
+    notifier = Notifier()
+
     def build(self):
-        self.theme_cls.theme_style = "Dark"
-        self.theme_cls.primary_palette = "Blue"
         return Builder.load_file("AppDesign.kv")
 
     def callback(self):
-        print("dypa")
+        self.notifier.notify("Przypomnienie o lekach", "Wez leki")
 
     def saveTime(self, instance, time):
         reminder = Reminder(str(time), self.callback)
@@ -57,6 +58,8 @@ class MyApp(MDApp):
         print("You clicked cancel!")
 
     def show_date_picker(self):
+        self.theme_cls.theme_style = "Dark"
+        self.theme_cls.primary_palette = "Blue"
         date_dialog = MDDatePicker(mode="range")
         date_dialog.bind(on_save=self.on_save, on_cancel=self.on_cancel)
         date_dialog.open()
