@@ -24,7 +24,7 @@ class WindowManager(ScreenManager):
     pass
 
 
-class MyApp(MDApp):
+class MyGUI(MDApp):
 
     notifier = Notifier()
 
@@ -65,7 +65,7 @@ class MyApp(MDApp):
         date_dialog.open()
 
 
-class MainWindow(Screen, MyApp):
+class MainWindow(Screen, MyGUI):
 
     def pressButtonUstawPrzypomnienie(self, *args):
         print("Przycik został wciśnięty")

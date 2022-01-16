@@ -1,7 +1,7 @@
 import time
 import schedule
 
-from MyApp import MyApp
+from MyGUI import MyGUI
 import _thread
 
 
@@ -14,11 +14,11 @@ class Main(object):
 
     _thread.start_new_thread(print_time, ("Thread-1", 1,))
 
-    myApp = MyApp()
-    myApp.build()
+    myGUI = MyGUI()
+    myGUI.build()
 
     print("dupa2")
 
 
-    myApp.run()
+    myGUI.run()
     print("dupa3")
