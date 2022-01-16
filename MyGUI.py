@@ -9,6 +9,8 @@ from kivy.core.window import Window
 from Notifier import Notifier
 from Reminder import Reminder
 
+from matplotlib import pyplot as plt
+
 Window.size = (750, 450)
 
 
@@ -56,9 +58,19 @@ class MyGUI(MDApp):
         date_dialog.bind(on_save=self.save_date, on_cancel=self.cancel_date)
         date_dialog.open()
 
+    def presser(self, pressed, list_id):
+        pressed.text = f"You pressed {list_id}"
+
 
 class MainWindow(Screen):
-    pass
+    def pulse(self):
+        dev_x = [10, 11, 12, 13, 14, 15]
+        dev_y = [98, 87, 67, 78, 90, 103]
+
+        plt.plot(dev_x, dev_y, color='r', linestyle='--', marker='.')
+        plt.xlabel("X Axis")
+        plt.ylabel("Y Axis")
+
 
 class SecondWindow(Screen):
     def pressButtonZatwierdz(self):
@@ -67,6 +79,10 @@ class SecondWindow(Screen):
 
 
 class PlotWindow(Screen):
+    pass
+
+
+class ListWindow(Screen):
     pass
 
 
