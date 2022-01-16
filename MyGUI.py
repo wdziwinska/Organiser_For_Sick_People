@@ -64,12 +64,13 @@ class MyGUI(MDApp):
 
 class MainWindow(Screen):
     def pulse(self):
-        dev_x = [10, 11, 12, 13, 14, 15]
-        dev_y = [98, 87, 67, 78, 90, 103]
+        x = [10, 11, 12, 13, 14, 15]
+        y = [98, 87, 67, 78, 90, 103]
 
-        plt.plot(dev_x, dev_y, color='r', linestyle='--', marker='.')
-        plt.xlabel("X Axis")
-        plt.ylabel("Y Axis")
+        plt.plot(x, y, color='r', linestyle='--', marker='.')
+        plt.xlabel("Date")
+        plt.ylabel("Pulse")
+        plt.show()
 
 
 class SecondWindow(Screen):
