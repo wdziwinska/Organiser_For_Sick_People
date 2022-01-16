@@ -16,6 +16,24 @@ WindowManager:
             app.root.current = "second"
             root.manager.transition.direction = "right"
 
+    Button:
+        text: 'Kalendarz'
+        pos_hint: {'center_x': 0.5, 'center_y': 0.1}
+        size_hint: .2, .1
+        size: "20dp", "10dp"
+        pos: "300dp", "100dp"
+        background_color: 0, 0, 1, 1
+
+
+    Button:
+        text: 'Wykresy'
+        pos_hint: {'center_x': 0.8, 'center_y': 0.1}
+        size_hint: .2, .1
+        size: "20dp", "10dp"
+        pos: "500dp", "100dp"
+        background_color: 0, 0, 1, 1
+        on_release: app.root.current = "plot"
+
 <SecondWindow>:
     name: "second"
 
