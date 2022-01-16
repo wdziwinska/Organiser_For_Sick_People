@@ -12,23 +12,13 @@ from Reminder import Reminder
 Window.size = (750, 450)
 
 
-class SecondWindow(Screen):
-    pass
-
-
-class PlotWindow(Screen):
-    pass
-
-
-class WindowManager(ScreenManager):
-    pass
-
-
 class MyGUI(MDApp):
 
     notifier = Notifier()
 
     def build(self):
+        self.theme_cls.theme_style = "Dark"
+        self.theme_cls.primary_palette = "Blue"
         return Builder.load_file("AppDesign.kv")
 
     def callback(self):
@@ -42,6 +32,8 @@ class MyGUI(MDApp):
         print("You clicked cancel!")
 
     def show_time_picker(self):
+        self.theme_cls.theme_style = "Dark"
+        self.theme_cls.primary_palette = "Blue"
         from datetime import datetime
         time_dialog = MDTimePicker()
         time_dialog.bind(on_save=self.save_time, on_cancel=self.cancel_time)
@@ -65,6 +57,18 @@ class MyGUI(MDApp):
         date_dialog.open()
 
 
-class MainWindow(Screen, MyGUI):
+class MainWindow(Screen):
     pass
 
+class SecondWindow(Screen):
+    def pressButtonZatwierdz(self):
+        myGUI = MyGUI()
+        myGUI.show_date_picker()
+
+
+class PlotWindow(Screen):
+    pass
+
+
+class WindowManager(ScreenManager):
+    pass
