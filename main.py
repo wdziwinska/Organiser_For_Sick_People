@@ -16,9 +16,4 @@ class Main(object):
 
     myGUI = MyGUI()
     myGUI.build()
-
-    print("dupa2")
-
-
     myGUI.run()
-    print("dupa3")
