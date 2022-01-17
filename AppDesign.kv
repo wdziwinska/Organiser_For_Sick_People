@@ -79,6 +79,12 @@ WindowManager:
 <PlotWindow>
     name: "plot"
 
+    Button:
+        text: "Create pulse plot !"
+        pos_hint: {'center_x': 0.5, 'center_y': 0.3}
+        size_hint: .2, .1
+        on_release: root.plotFunction()
+
     BoxLayout:
         id: box
         size_hint_y: .8

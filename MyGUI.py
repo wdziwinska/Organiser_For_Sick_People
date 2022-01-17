@@ -74,6 +74,9 @@ class MyGUI(MDApp):
 
 
 class PlotWindow(Screen):
+    def plotFunction(self):
+        box = self.ids.box
+        box.add_widget(FigureCanvasKivyAgg(plt.gcf()))
 
     def savePlot(self):
         name = self.ids.namer.text
@@ -81,17 +84,14 @@ class PlotWindow(Screen):
             plt.savefig(name)
 
 
-class MainWindow(Screen):
-    def plot(self):
-        box = self.ids.box
-        box.add_widget(FigureCanvasKivyAgg(plt.gcf()))
-
-
 class SecondWindow(Screen):
     def pressButtonZatwierdz(self):
         myGUI = MyGUI()
         myGUI.show_date_picker()
 
+
+class MainWindow(Screen):
+    pass
 
 class ListWindow(Screen):
     pass
