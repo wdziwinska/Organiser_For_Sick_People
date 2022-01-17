@@ -33,7 +33,9 @@ WindowManager:
         size: "20dp", "10dp"
         pos: "500dp", "100dp"
         background_color: 0, 0, 1, 1
-        on_release: root.pulse()
+        on_release:
+            app.root.current = "plot"
+            #root.plot()
 
 <SecondWindow>:
     name: "second"
@@ -77,11 +79,22 @@ WindowManager:
 <PlotWindow>
     name: "plot"
 
-    Button:
-        text: "tu beda wykresy"
-        on_release:
-            app.root.current = "main"
-            root.manager.transition.direction = "right"
+    BoxLayout:
+        id: box
+        size_hint_y: .8
+        pos_hint: {"top":1}
+
+    BoxLayout:
+        size_hint_y: .2
+        TextInput:
+            id: namer
+            multiline: False
+
+        Button:
+            text: "Save It!"
+            on_release:
+                root.savePlot()
+                app.root.current = "main"
 
 <ListWindow>:
     name: "list"

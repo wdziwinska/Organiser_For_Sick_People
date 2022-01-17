@@ -9,7 +9,18 @@ from kivy.core.window import Window
 from Notifier import Notifier
 from Reminder import Reminder
 
+from kivy.lang import Builder
+from kivy.uix.floatlayout import FloatLayout
+from kivymd.app import MDApp
 from matplotlib import pyplot as plt
+from kivy.garden.matplotlib.backend_kivyagg import FigureCanvasKivyAgg
+
+x = [10, 11, 12, 13, 14, 15]
+y = [98, 87, 67, 78, 90, 103]
+
+plt.plot(x, y, color='r', linestyle='--', marker='.')
+plt.xlabel("Date")
+plt.ylabel("Pulse")
 
 Window.size = (750, 450)
 
@@ -62,25 +73,24 @@ class MyGUI(MDApp):
         pressed.text = f"You pressed {list_id}"
 
 
-class MainWindow(Screen):
-    def pulse(self):
-        x = [10, 11, 12, 13, 14, 15]
-        y = [98, 87, 67, 78, 90, 103]
+class PlotWindow(Screen):
 
-        plt.plot(x, y, color='r', linestyle='--', marker='.')
-        plt.xlabel("Date")
-        plt.ylabel("Pulse")
-        plt.show()
+    def savePlot(self):
+        name = self.ids.namer.text
+        if name:
+            plt.savefig(name)
+
+
+class MainWindow(Screen):
+    def plot(self):
+        box = self.ids.box
+        box.add_widget(FigureCanvasKivyAgg(plt.gcf()))
 
 
 class SecondWindow(Screen):
     def pressButtonZatwierdz(self):
         myGUI = MyGUI()
         myGUI.show_date_picker()
-
-
-class PlotWindow(Screen):
-    pass
 
 
 class ListWindow(Screen):
