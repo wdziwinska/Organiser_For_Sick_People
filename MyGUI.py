@@ -1,3 +1,5 @@
+import datetime
+
 from kivy.app import App
 from kivy.lang import Builder
 from kivymd.app import MDApp
@@ -11,6 +13,7 @@ from Reminder import Reminder
 from matplotlib import pyplot as plt
 from kivy.garden.matplotlib.backend_kivyagg import FigureCanvasKivyAgg
 
+from datetime import datetime
 import csv
 
 Window.size = (750, 450)
@@ -50,44 +53,24 @@ class ListWindow(Screen):
 
 
 class AddPulse(Screen):
-    def savePlot(self):
+    def savePulse(self):
         # name = self.ids.namer.text
         # if name:
         #     plt.savefig(name)
 
         pulseValue = self.ids.pulseValue.text
         print(pulseValue)
+        print(type(pulseValue))
 
-        with open('PulseDate.csv', 'w', newline='') as csvFile:
-            writer = csv.writer(csvFile, quoting=csv.QUOTE_NONNUMERIC, delimiter=';')
-            writer.writerow(pulseValue)
-
-        # csvFile = open("PulseDate.csv", 'w', newline=' ')
-        # writer = csv.writer(csvFile)
-        # writer.writerow('65')
-        # csvFile.close()
+        with open('PulseDate.csv', 'a', newline='') as csvFile:
+            writer = csv.writer(csvFile, delimiter=';')
+            now = datetime.now()
+            dateTime_string = now.strftime("%d/%m/%Y %H:%M")
+            writer.writerow([int(pulseValue), dateTime_string])
 
 
 class WindowManager(ScreenManager):
     pass
-
-# Builder.load_string("""
-# <MainWindow>:
-#     BoxLayout:
-#         Button:
-#             text: 'Goto settings'
-#             on_press: root.manager.current = 'settings'
-#         Button:
-#             text: 'Quit'
-#
-# <SecondWindow>:
-#     BoxLayout:
-#         Button:
-#             text: 'My settings button'
-#         Button:
-#             text: 'Back to menu'
-#             on_press: root.manager.current = 'menu'
-# """)
 
 
 class SingletonMeta(type):
