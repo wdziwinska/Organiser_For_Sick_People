@@ -21,14 +21,24 @@ Window.size = (750, 450)
 
 class PlotWindow(Screen):
     def plotFunction(self):
-        x = [10, 11, 12, 13, 14, 15]
-        y = [98, 87, 67, 78, 90, 103]
+
+        x = []
+        y = []
+
+        with open("PulseDate.csv", 'r') as file:
+            csvReader = csv.reader(file, delimiter=';')
+            header = next(csvReader)
+            for row in csvReader:
+                y.append(int(row[0]))
+                x.append(row[1])
+                print(row)
 
         plt.plot(x, y, color='r', linestyle='--', marker='.')
         plt.xlabel("Date")
         plt.ylabel("Pulse")
 
         box = self.ids.box
+        box.clear_widgets()
         box.add_widget(FigureCanvasKivyAgg(plt.gcf()))
 
 
