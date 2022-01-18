@@ -33,6 +33,7 @@ class SecondWindow(Screen):
     def pressButtonZatwierdz(self):
         myGUI = MyGUI()
         myGUI.show_date_picker()
+        print(id(myGUI))
 
         messageTitle = self.ids.msgTitle.text
         message = self.ids.msg.text
@@ -89,7 +90,19 @@ class WindowManager(ScreenManager):
 # """)
 
 
-class MyGUI(MDApp):
+class SingletonMeta(type):
+
+    _instances = {}
+
+    def __call__(cls, *args, **kwargs):
+
+        if cls not in cls._instances:
+            instance = super().__call__(*args, **kwargs)
+            cls._instances[cls] = instance
+        return cls._instances[cls]
+
+
+class MyGUI(MDApp, metaclass=SingletonMeta):
     notifier = Notifier()
     sm = None
 
