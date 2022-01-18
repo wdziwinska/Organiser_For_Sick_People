@@ -15,24 +15,101 @@ import csv
 
 Window.size = (750, 450)
 
-messageTitle = "None"
-message = "None"
+
+class PlotWindow(Screen):
+    def plotFunction(self):
+        x = [10, 11, 12, 13, 14, 15]
+        y = [98, 87, 67, 78, 90, 103]
+
+        plt.plot(x, y, color='r', linestyle='--', marker='.')
+        plt.xlabel("Date")
+        plt.ylabel("Pulse")
+
+        box = self.ids.box
+        box.add_widget(FigureCanvasKivyAgg(plt.gcf()))
+
+
+class SecondWindow(Screen):
+    def pressButtonZatwierdz(self):
+        myGUI = MyGUI()
+        myGUI.show_date_picker()
+
+        messageTitle = self.ids.msgTitle.text
+        message = self.ids.msg.text
+        myGUI.func(messageTitle, message)
+        print("tit and mess: ", messageTitle, message)
+
+
+class MainWindow(Screen):
+    pass
+
+
+class ListWindow(Screen):
+    pass
+
+
+class AddPulse(Screen):
+    def savePlot(self):
+        # name = self.ids.namer.text
+        # if name:
+        #     plt.savefig(name)
+
+        pulseValue = self.ids.pulseValue.text
+        print(pulseValue)
+
+        with open('PulseDate.csv', 'w', newline='') as csvFile:
+            writer = csv.writer(csvFile, quoting=csv.QUOTE_NONNUMERIC, delimiter=';')
+            writer.writerow(pulseValue)
+
+        # csvFile = open("PulseDate.csv", 'w', newline=' ')
+        # writer = csv.writer(csvFile)
+        # writer.writerow('65')
+        # csvFile.close()
+
+
+class WindowManager(ScreenManager):
+    pass
+
+# Builder.load_string("""
+# <MainWindow>:
+#     BoxLayout:
+#         Button:
+#             text: 'Goto settings'
+#             on_press: root.manager.current = 'settings'
+#         Button:
+#             text: 'Quit'
+#
+# <SecondWindow>:
+#     BoxLayout:
+#         Button:
+#             text: 'My settings button'
+#         Button:
+#             text: 'Back to menu'
+#             on_press: root.manager.current = 'menu'
+# """)
 
 
 class MyGUI(MDApp):
     notifier = Notifier()
+    sm = None
 
     def build(self):
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "Blue"
-        return Builder.load_file("AppDesign.kv")
 
-    def call(self):
-        print("messageTitle and message: ", messageTitle, message)
-        self.notifier.notify(messageTitle, message)
+        self.sm = Builder.load_file("AppDesign.kv")
+        return self.sm
+
+    def func(self, msgTitle, msg):
+        self._msgTitle = msgTitle
+        self._msg = msg
+
+    def callback(self):
+        print("messageTitle and message: ", self._msgTitle, self._msg)
+        self.notifier.notify(self._msgTitle, self._msg)
 
     def save_time(self, instance, time):
-        reminder = Reminder(str(time), self.call)
+        reminder = Reminder(str(time), self.callback)
         print(str(time))
 
     def cancel_time(self, instance, time):
@@ -66,57 +143,3 @@ class MyGUI(MDApp):
 
     def presser(self, pressed, list_id):
         pressed.text = f"You pressed {list_id}"
-
-
-class PlotWindow(Screen):
-    def plotFunction(self):
-        x = [10, 11, 12, 13, 14, 15]
-        y = [98, 87, 67, 78, 90, 103]
-
-        plt.plot(x, y, color='r', linestyle='--', marker='.')
-        plt.xlabel("Date")
-        plt.ylabel("Pulse")
-
-        box = self.ids.box
-        box.add_widget(FigureCanvasKivyAgg(plt.gcf()))
-
-
-class SecondWindow(Screen):
-    def pressButtonZatwierdz(self):
-        myGUI = MyGUI()
-        myGUI.show_date_picker()
-
-        messageTitle = self.ids.msgTitle.text
-        message = self.ids.msg.text
-        print("tit nad mess: ", messageTitle, message)
-
-
-class MainWindow(Screen):
-    pass
-
-
-class ListWindow(Screen):
-    pass
-
-
-class AddPulse(Screen):
-    def savePlot(self):
-        # name = self.ids.namer.text
-        # if name:
-        #     plt.savefig(name)
-
-        pulseValue = self.ids.pulseValue.text
-        print(pulseValue)
-
-        with open('PulseDate.csv', 'w', newline='') as csvFile:
-            writer = csv.writer(csvFile, quoting=csv.QUOTE_NONNUMERIC, delimiter=';')
-            writer.writerow(pulseValue)
-
-        # csvFile = open("PulseDate.csv", 'w', newline=' ')
-        # writer = csv.writer(csvFile)
-        # writer.writerow('65')
-        # csvFile.close()
-
-
-class WindowManager(ScreenManager):
-    pass

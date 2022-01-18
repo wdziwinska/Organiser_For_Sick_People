@@ -15,5 +15,6 @@ class Main(object):
     _thread.start_new_thread(print_time, ("Thread-1", 1,))
 
     myGUI = MyGUI()
-    myGUI.build()
+    screenManager = myGUI.build()
+    screenManager.current = "second"
     myGUI.run()
