@@ -3,6 +3,7 @@ WindowManager:
     SecondWindow:
     PlotWindow:
     ListWindow:
+    AddPulse:
 
 <MainWindow>:
     name: 'main'
@@ -101,6 +102,7 @@ WindowManager:
         text: "Dodaj dane"
         pos_hint: {'center_x': 0.5, 'center_y': 0.05}
         size_hint: .2, .1
+        on_release: app.root.current = "pulse"
 
 
 <ListWindow>:
@@ -123,3 +125,25 @@ WindowManager:
         on_release:
             app.root.current = "main"
             root.manager.transition.direction = "right"
+
+<AddPulse>:
+    name: "pulse"
+
+    Label:
+        text: "Wprowadź puls"
+        size_hint: .2, .1
+        pos_hint: {'center_x': 0.3, 'center_y': 0.75}
+
+    TextInput:
+        id: pulseValue
+        multiline: False
+        size_hint: .2, .1
+        pos_hint: {'center_x': 0.5, 'center_y': 0.75}
+
+    Button:
+        text: "Zatwierdź"
+        pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+        size_hint: .2, .1
+        on_release:
+            root.savePlot()
+            app.root.current = "plot"
