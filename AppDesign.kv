@@ -80,27 +80,28 @@ WindowManager:
     name: "plot"
 
     Button:
-        text: "Create pulse plot !"
-        pos_hint: {'center_x': 0.5, 'center_y': 0.3}
+        text: "    Wygenruj \n wykres pulsu"
+        pos_hint: {'center_x': 0.1, 'center_y': 0.05}
         size_hint: .2, .1
         on_release: root.plotFunction()
 
     BoxLayout:
         id: box
-        size_hint_y: .8
+        size_hint_y: .9
         pos_hint: {"top":1}
 
-    BoxLayout:
-        size_hint_y: .2
-        TextInput:
-            id: namer
-            multiline: False
+    Button:
+        text: "Wróć"
+        pos_hint: {'center_x': 0.9, 'center_y': 0.05}
+        size_hint: .2, .1
+        on_release:
+            app.root.current = "main"
 
-        Button:
-            text: "Save It!"
-            on_release:
-                root.savePlot()
-                app.root.current = "main"
+    Button:
+        text: "Dodaj dane"
+        pos_hint: {'center_x': 0.5, 'center_y': 0.05}
+        size_hint: .2, .1
+
 
 <ListWindow>:
     name: "list"
