@@ -78,6 +78,36 @@ class PlotWindow(Screen):
         box.clear_widgets()
         box.add_widget(FigureCanvasKivyAgg(plt.gcf()))
 
+    def saturationPlot(self):
+        x = []
+        y = []
+
+        with open("SaturationData.csv", 'r') as file:
+            csvReader = csv.reader(file, delimiter=';')
+            header = next(csvReader)
+            for row in csvReader:
+                y.append(float(row[0]))
+                x.append(row[1])
+                print(row)
+
+        fig, ax = plt.subplots(1,1,figsize=(15,5))
+        ax.plot(x, y, color='g', linestyle='--', marker='.')
+        ax.set_title('Temperature')
+        fig.patch.set_facecolor('xkcd:grey')
+        ax.set_facecolor('xkcd:dark grey')
+        # ax.set(xlabel='Data', ylabel='Puls')
+
+        xticks = ax.get_xticks()
+
+        if len(xticks) >= 10:
+            ax.set_xticks(xticks[::len(xticks) // 5])  # set new tick positions
+
+        ax.tick_params(axis='x', rotation=12, labelsize=7)  # set tick rotation
+
+        box = self.ids.box
+        box.clear_widgets()
+        box.add_widget(FigureCanvasKivyAgg(plt.gcf()))
+
 class SecondWindow(Screen):
     def pressButtonZatwierdz(self):
         myGUI = MyGUI()
@@ -121,6 +151,17 @@ class PulseWindow(Screen):
                 now = datetime.now()
                 dateTime_string = now.strftime("%d/%m/%Y %H:%M")
                 writer.writerow([float(temperatureValue), dateTime_string])
+
+    def addNewSaturationValue(self):
+        saturationValue = self.ids.saturationValue.text
+        print(saturationValue)
+
+        if saturationValue is not '':
+            with open('SaturationData.csv', 'a', newline='') as csvFile:
+                writer = csv.writer(csvFile, delimiter=';')
+                now = datetime.now()
+                dateTime_string = now.strftime("%d/%m/%Y %H:%M")
+                writer.writerow([int(saturationValue), dateTime_string])
 
 
 class WindowManager(ScreenManager):

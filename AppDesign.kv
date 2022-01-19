@@ -96,7 +96,7 @@ WindowManager:
         text: "      Wygeneruj \n wykres saturacji"
         pos_hint: {'center_x': 0.5, 'center_y': 0.05}
         size_hint: .2, .1
-        on_release: root.temperaturePlot()
+        on_release: root.saturationPlot()
 
     BoxLayout:
         id: box
@@ -163,6 +163,17 @@ WindowManager:
         size_hint: .2, .1
         pos_hint: {'center_x': 0.6, 'center_y': 0.75}
 
+    Label:
+        text: "Wprowadź saturację"
+        size_hint: .2, .1
+        pos_hint: {'center_x': 0.8, 'center_y': 0.85}
+
+    TextInput:
+        id: saturationValue
+        multiline: False
+        size_hint: .2, .1
+        pos_hint: {'center_x': 0.8, 'center_y': 0.75}
+
     Button:
         text: "Zatwierdź"
         pos_hint: {'center_x': 0.5, 'center_y': 0.6}
@@ -170,6 +181,7 @@ WindowManager:
         on_release:
             root.addNewPulseValue()
             root.addNewTemperatureValue()
+            root.addNewSaturationValue()
             app.root.current = "plot"
 
     Button:
