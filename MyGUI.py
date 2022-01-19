@@ -62,7 +62,7 @@ class PlotWindow(Screen):
 
         fig, ax = plt.subplots(1,1,figsize=(15,5))
         ax.plot(x, y, color='b', linestyle='--', marker='.')
-        ax.set_title('Temperature')
+        ax.set_title('Temperatura')
         fig.patch.set_facecolor('xkcd:grey')
         ax.set_facecolor('xkcd:dark grey')
         # ax.set(xlabel='Data', ylabel='Puls')
@@ -92,7 +92,7 @@ class PlotWindow(Screen):
 
         fig, ax = plt.subplots(1,1,figsize=(15,5))
         ax.plot(x, y, color='g', linestyle='--', marker='.')
-        ax.set_title('Temperature')
+        ax.set_title('Saturacja')
         fig.patch.set_facecolor('xkcd:grey')
         ax.set_facecolor('xkcd:dark grey')
         # ax.set(xlabel='Data', ylabel='Puls')
@@ -108,7 +108,8 @@ class PlotWindow(Screen):
         box.clear_widgets()
         box.add_widget(FigureCanvasKivyAgg(plt.gcf()))
 
-class SecondWindow(Screen):
+
+class AddMessageWindow(Screen):
     def pressButtonZatwierdz(self):
         myGUI = MyGUI()
         myGUI.show_date_picker()
@@ -128,7 +129,7 @@ class ListWindow(Screen):
     pass
 
 
-class PulseWindow(Screen):
+class AddDataWindow(Screen):
     def addNewPulseValue(self):
         pulseValue = self.ids.pulseValue.text
         print("pulseValue:", pulseValue)

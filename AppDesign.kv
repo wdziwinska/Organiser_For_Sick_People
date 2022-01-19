@@ -1,9 +1,9 @@
 WindowManager:
     MainWindow:
-    SecondWindow:
+    AddMessageWindow:
     PlotWindow:
     ListWindow:
-    PulseWindow:
+    AddDataWindow:
 
 <MainWindow>:
     name: 'main'
@@ -38,7 +38,7 @@ WindowManager:
             app.root.current = "plot"
             #root.plot()
 
-<SecondWindow>:
+<AddMessageWindow>:
     name: "second"
 
     Label:
@@ -138,7 +138,7 @@ WindowManager:
             app.root.current = "main"
             root.manager.transition.direction = "right"
 
-<PulseWindow>:
+<AddDataWindow>:
     name: "pulse"
 
     Label:
