@@ -71,17 +71,26 @@ class ListWindow(Screen):
 class PulseWindow(Screen):
     def addNewPulseValue(self):
         pulseValue = self.ids.pulseValue.text
-        print(pulseValue)
+        print("pulseValue:", pulseValue)
         print(type(pulseValue))
 
-        with open('PulseDate.csv', 'a', newline='') as csvFile:
-            writer = csv.writer(csvFile, delimiter=';')
-            now = datetime.now()
-            dateTime_string = now.strftime("%d/%m/%Y %H:%M")
-            writer.writerow([int(pulseValue), dateTime_string])
+        if pulseValue is not '':
+            with open('PulseDate.csv', 'a', newline='') as csvFile:
+                writer = csv.writer(csvFile, delimiter=';')
+                now = datetime.now()
+                dateTime_string = now.strftime("%d/%m/%Y %H:%M")
+                writer.writerow([int(pulseValue), dateTime_string])
 
     def addNewTemperatureValue(self):
-        print("tutaj bedę dodawać nowe wartości")
+        temperatureValue = self.ids.temperatureValue.text
+        print(temperatureValue)
+
+        if temperatureValue is not '':
+            with open('TemperatureData.csv', 'a', newline='') as csvFile:
+                writer = csv.writer(csvFile, delimiter=';')
+                now = datetime.now()
+                dateTime_string = now.strftime("%d/%m/%Y %H:%M")
+                writer.writerow([float(temperatureValue), dateTime_string])
 
 
 class WindowManager(ScreenManager):

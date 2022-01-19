@@ -138,13 +138,24 @@ WindowManager:
     Label:
         text: "Wprowadź puls"
         size_hint: .2, .1
-        pos_hint: {'center_x': 0.3, 'center_y': 0.75}
+        pos_hint: {'center_x': 0.4, 'center_y': 0.85}
 
     TextInput:
         id: pulseValue
         multiline: False
         size_hint: .2, .1
-        pos_hint: {'center_x': 0.5, 'center_y': 0.75}
+        pos_hint: {'center_x': 0.4, 'center_y': 0.75}
+
+    Label:
+        text: "Wprowadź temperaturę"
+        size_hint: .2, .1
+        pos_hint: {'center_x': 0.6, 'center_y': 0.85}
+
+    TextInput:
+        id: temperatureValue
+        multiline: False
+        size_hint: .2, .1
+        pos_hint: {'center_x': 0.6, 'center_y': 0.75}
 
     Button:
         text: "Zatwierdź"
@@ -152,6 +163,7 @@ WindowManager:
         size_hint: .2, .1
         on_release:
             root.addNewPulseValue()
+            root.addNewTemperatureValue()
             app.root.current = "plot"
 
     Button:
