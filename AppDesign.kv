@@ -147,3 +147,10 @@ WindowManager:
         on_release:
             root.savePulse()
             app.root.current = "plot"
+
+    Button:
+        text: "Wróć"
+        pos_hint: {'center_x': 0.5, 'center_y': 0.45}
+        size_hint: .2, .1
+        on_release:
+            app.root.current = "plot"

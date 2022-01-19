@@ -33,9 +33,13 @@ class PlotWindow(Screen):
                 x.append(row[1])
                 print(row)
 
-        plt.plot(x, y, color='r', linestyle='--', marker='.')
-        plt.xlabel("Date")
-        plt.ylabel("Pulse")
+        fig, ax = plt.subplots(1,1,figsize=(15,5))
+        ax.plot(x, y, color='r', linestyle='--', marker='.')
+        ax.set_title('Puls')
+        # ax.set(xlabel='Data', ylabel='Puls')
+        xticks = ax.get_xticks()
+        ax.set_xticks(xticks[::len(xticks) // 5])  # set new tick positions
+        ax.tick_params(axis='x', rotation=12, labelsize=7)  # set tick rotation
 
         box = self.ids.box
         box.clear_widgets()
