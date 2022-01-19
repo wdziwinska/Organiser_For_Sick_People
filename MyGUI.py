@@ -20,7 +20,7 @@ Window.size = (750, 450)
 
 
 class PlotWindow(Screen):
-    def plotFunction(self):
+    def pulsePlot(self):
 
         x = []
         y = []
@@ -45,6 +45,8 @@ class PlotWindow(Screen):
         box.clear_widgets()
         box.add_widget(FigureCanvasKivyAgg(plt.gcf()))
 
+    def temperaturePlot(self):
+        print("Tu będzie wykres temperatury")
 
 class SecondWindow(Screen):
     def pressButtonZatwierdz(self):
@@ -66,12 +68,8 @@ class ListWindow(Screen):
     pass
 
 
-class AddPulse(Screen):
-    def savePulse(self):
-        # name = self.ids.namer.text
-        # if name:
-        #     plt.savefig(name)
-
+class PulseWindow(Screen):
+    def addNewPulseValue(self):
         pulseValue = self.ids.pulseValue.text
         print(pulseValue)
         print(type(pulseValue))
@@ -81,6 +79,9 @@ class AddPulse(Screen):
             now = datetime.now()
             dateTime_string = now.strftime("%d/%m/%Y %H:%M")
             writer.writerow([int(pulseValue), dateTime_string])
+
+    def addNewTemperatureValue(self):
+        print("tutaj bedę dodawać nowe wartości")
 
 
 class WindowManager(ScreenManager):

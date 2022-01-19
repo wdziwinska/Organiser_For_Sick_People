@@ -3,7 +3,7 @@ WindowManager:
     SecondWindow:
     PlotWindow:
     ListWindow:
-    AddPulse:
+    PulseWindow:
 
 <MainWindow>:
     name: 'main'
@@ -84,7 +84,13 @@ WindowManager:
         text: "    Wygeneruj \n wykres pulsu"
         pos_hint: {'center_x': 0.1, 'center_y': 0.05}
         size_hint: .2, .1
-        on_release: root.plotFunction()
+        on_release: root.pulsePlot()
+
+    Button:
+        text: "        Wygeneruj \n wykres temperatury"
+        pos_hint: {'center_x': 0.3, 'center_y': 0.05}
+        size_hint: .2, .1
+        on_release: root.temperaturePlot()
 
     BoxLayout:
         id: box
@@ -126,7 +132,7 @@ WindowManager:
             app.root.current = "main"
             root.manager.transition.direction = "right"
 
-<AddPulse>:
+<PulseWindow>:
     name: "pulse"
 
     Label:
@@ -145,7 +151,7 @@ WindowManager:
         pos_hint: {'center_x': 0.5, 'center_y': 0.6}
         size_hint: .2, .1
         on_release:
-            root.savePulse()
+            root.addNewPulseValue()
             app.root.current = "plot"
 
     Button:
