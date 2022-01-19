@@ -81,14 +81,20 @@ WindowManager:
     name: "plot"
 
     Button:
-        text: "    Wygeneruj \n wykres pulsu"
+        text: "   Wygeneruj \n wykres pulsu"
         pos_hint: {'center_x': 0.1, 'center_y': 0.05}
         size_hint: .2, .1
         on_release: root.pulsePlot()
 
     Button:
-        text: "        Wygeneruj \n wykres temperatury"
+        text: "         Wygeneruj \n wykres temperatury"
         pos_hint: {'center_x': 0.3, 'center_y': 0.05}
+        size_hint: .2, .1
+        on_release: root.temperaturePlot()
+
+    Button:
+        text: "      Wygeneruj \n wykres saturacji"
+        pos_hint: {'center_x': 0.5, 'center_y': 0.05}
         size_hint: .2, .1
         on_release: root.temperaturePlot()
 
@@ -106,7 +112,7 @@ WindowManager:
 
     Button:
         text: "Dodaj dane"
-        pos_hint: {'center_x': 0.5, 'center_y': 0.05}
+        pos_hint: {'center_x': 0.7, 'center_y': 0.05}
         size_hint: .2, .1
         on_release: app.root.current = "pulse"
 
