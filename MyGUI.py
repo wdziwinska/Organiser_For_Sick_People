@@ -36,9 +36,12 @@ class PlotWindow(Screen):
         fig, ax = plt.subplots(1,1,figsize=(15,5))
         ax.plot(x, y, color='r', linestyle='--', marker='.')
         ax.set_title('Puls')
+        fig.patch.set_facecolor('xkcd:grey')
+        ax.set_facecolor('xkcd:dark grey')
         # ax.set(xlabel='Data', ylabel='Puls')
         xticks = ax.get_xticks()
-        ax.set_xticks(xticks[::len(xticks) // 5])  # set new tick positions
+        if len(xticks) >= 10:
+            ax.set_xticks(xticks[::len(xticks) // 5])  # set new tick positions
         ax.tick_params(axis='x', rotation=12, labelsize=7)  # set tick rotation
 
         box = self.ids.box
@@ -60,6 +63,8 @@ class PlotWindow(Screen):
         fig, ax = plt.subplots(1,1,figsize=(15,5))
         ax.plot(x, y, color='b', linestyle='--', marker='.')
         ax.set_title('Temperature')
+        fig.patch.set_facecolor('xkcd:grey')
+        ax.set_facecolor('xkcd:dark grey')
         # ax.set(xlabel='Data', ylabel='Puls')
 
         xticks = ax.get_xticks()
