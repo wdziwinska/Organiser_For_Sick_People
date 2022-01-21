@@ -8,19 +8,27 @@ WindowManager:
 <MainWindow>:
     name: 'main'
 
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'gradient.jpg'
+
     Button:
         text: '        Ustaw \n przypomnienie'
-        pos_hint: {'center_x': 0.2, 'center_y': 0.1}
+        pos_hint: {'center_x': 0.5, 'center_y': 0.7}
         size_hint: .2, .1
+        #background_color: 0, 0, 0, 0
         background_color: 0, 0, 1, 1
         size: "20dp", "10dp"
+     #   on_cursor_move: color: 0, 0, 1, 1
         on_release:
             app.root.current = "second"
             root.manager.transition.direction = "right"
 
     Button:
         text: 'Kalendarz'
-        pos_hint: {'center_x': 0.5, 'center_y': 0.1}
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
         size_hint: .2, .1
         size: "20dp", "10dp"
         pos: "300dp", "100dp"
@@ -29,7 +37,7 @@ WindowManager:
 
     Button:
         text: 'Wykresy'
-        pos_hint: {'center_x': 0.8, 'center_y': 0.1}
+        pos_hint: {'center_x': 0.5, 'center_y': 0.3}
         size_hint: .2, .1
         size: "20dp", "10dp"
         pos: "500dp", "100dp"
@@ -41,6 +49,12 @@ WindowManager:
 <AddMessageWindow>:
     name: "second"
 
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'gradient.jpg'
+
     Label:
         text: "Ustaw tytuł \nprzypomnienia"
         size_hint: .2, .1
@@ -49,6 +63,7 @@ WindowManager:
         id: msgTitle
         multiline: False
         size_hint: .2, .1
+        background_color: 0, 0, 0, 0
         pos_hint: {'center_x': 0.5, 'center_y': 0.9}
 
     Label:
@@ -59,19 +74,22 @@ WindowManager:
         id: msg
         multiline: False
         size_hint: .2, .1
+        background_color: 1, 1, 1, 0
         pos_hint: {'center_x': 0.5, 'center_y': 0.75}
 
     Button:
         text: "Zatwierdź"
-        pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
         size_hint: .2, .1
+        background_color: 0, 0, 1, 1
         on_release:
             root.pressButtonZatwierdz()
 
     Button:
         text: "Wróć"
-        pos_hint: {'center_x': 0.5, 'center_y': 0.3}
+        pos_hint: {'center_x': 0.5, 'center_y': 0.35}
         size_hint: .2, .1
+        background_color: 0, 0, 1, 1
         on_release:
             app.root.current = "main"
             root.manager.transition.direction = "right"
@@ -80,22 +98,31 @@ WindowManager:
 <PlotWindow>
     name: "plot"
 
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'gradient.jpg'
+
     Button:
         text: "   Wygeneruj \n wykres pulsu"
         pos_hint: {'center_x': 0.1, 'center_y': 0.05}
         size_hint: .2, .1
+        background_color: 0, 0, 0, 0
         on_release: root.pulsePlot()
 
     Button:
         text: "         Wygeneruj \n wykres temperatury"
         pos_hint: {'center_x': 0.3, 'center_y': 0.05}
         size_hint: .2, .1
+        background_color: 0, 0, 0, 0
         on_release: root.temperaturePlot()
 
     Button:
         text: "      Wygeneruj \n wykres saturacji"
         pos_hint: {'center_x': 0.5, 'center_y': 0.05}
         size_hint: .2, .1
+        background_color: 0, 0, 0, 0
         on_release: root.saturationPlot()
 
     BoxLayout:
@@ -107,6 +134,7 @@ WindowManager:
         text: "Wróć"
         pos_hint: {'center_x': 0.9, 'center_y': 0.05}
         size_hint: .2, .1
+        background_color: 0, 0, 0, 0
         on_release:
             app.root.current = "main"
 
@@ -114,16 +142,23 @@ WindowManager:
         text: "Dodaj dane"
         pos_hint: {'center_x': 0.7, 'center_y': 0.05}
         size_hint: .2, .1
+        background_color: 0, 0, 0, 0
         on_release: app.root.current = "pulse"
 
 
 <ListWindow>:
     name: "list"
 
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'gradient.jpg'
+
     MDList:
         TwoLineListItem:
             id: item1
-            text: "Awesome List item 1"
+         #   text: app.current.msgTitle.text
             on_release: app.presser(self, "item1")
 
         TwoLineListItem:
@@ -134,6 +169,7 @@ WindowManager:
         text: "Wróć"
         pos_hint: {'center_x': 0.9, 'center_y': 0.9}
         size_hint: .2, .1
+        background_color: 0, 0, 0, 0
         on_release:
             app.root.current = "main"
             root.manager.transition.direction = "right"
@@ -141,43 +177,50 @@ WindowManager:
 <AddDataWindow>:
     name: "pulse"
 
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'gradient.jpg'
+
     Label:
         text: "Wprowadź puls"
         size_hint: .2, .1
-        pos_hint: {'center_x': 0.4, 'center_y': 0.85}
+        pos_hint: {'center_x': 0.3, 'center_y': 0.85}
 
     TextInput:
         id: pulseValue
         multiline: False
         size_hint: .2, .1
-        pos_hint: {'center_x': 0.4, 'center_y': 0.75}
+        pos_hint: {'center_x': 0.3, 'center_y': 0.75}
 
     Label:
         text: "Wprowadź temperaturę"
         size_hint: .2, .1
-        pos_hint: {'center_x': 0.6, 'center_y': 0.85}
+        pos_hint: {'center_x': 0.5, 'center_y': 0.85}
 
     TextInput:
         id: temperatureValue
         multiline: False
         size_hint: .2, .1
-        pos_hint: {'center_x': 0.6, 'center_y': 0.75}
+        pos_hint: {'center_x': 0.5, 'center_y': 0.75}
 
     Label:
         text: "Wprowadź saturację"
         size_hint: .2, .1
-        pos_hint: {'center_x': 0.8, 'center_y': 0.85}
+        pos_hint: {'center_x': 0.7, 'center_y': 0.85}
 
     TextInput:
         id: saturationValue
         multiline: False
         size_hint: .2, .1
-        pos_hint: {'center_x': 0.8, 'center_y': 0.75}
+        pos_hint: {'center_x': 0.7, 'center_y': 0.75}
 
     Button:
         text: "Zatwierdź"
         pos_hint: {'center_x': 0.5, 'center_y': 0.6}
         size_hint: .2, .1
+        background_color: 0, 0, 1, 1
         on_release:
             root.addNewPulseValue()
             root.addNewTemperatureValue()
@@ -188,5 +231,6 @@ WindowManager:
         text: "Wróć"
         pos_hint: {'center_x': 0.5, 'center_y': 0.45}
         size_hint: .2, .1
+        background_color: 0, 0, 1, 1
         on_release:
             app.root.current = "plot"
