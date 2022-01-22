@@ -132,9 +132,9 @@ class MainWindow(Screen):
 class ListWindow(Screen):
     def messageForList(self):
         myGUI = MyGUI()
-        # messageTitleTable, messageTable = myGUI.readFromFileMessage()
-        # print("List window: MesTit and mess: ", messageTitleTable, messageTable)
-        # self.ids.item1.add_widget(OneLineListItem(text=messageTitleTable[0]))
+        messageTitleTable, messageTable = myGUI.readFromFileMessage()
+        print("List window: MesTit and mess: ", messageTitleTable, messageTable)
+        self.ids.item2.add_widget(OneLineListItem(text=messageTitleTable[0]))
 
 
 class AddDataWindow(Screen):
@@ -211,17 +211,17 @@ class MyGUI(MDApp, metaclass=SingletonMeta):
             print("saveForFile: ", self._msgTitle, self._msg)
             writer.writerow([self._msgTitle, self._msg])
 
-    # def readFromFileMessage(self):
-    #     messageTitleTable = []
-    #     messageTable = []
-    #     with open("Message.csv", 'r') as file:
-    #         csvReader = csv.reader(file, delimiter=';')
-    #         header = next(csvReader)
-    #         for row in csvReader:
-    #             messageTitleTable.append(int(row[0]))
-    #             messageTable.append(row[1])
-    #             print(row)
-    #     return messageTitleTable, messageTable
+    def readFromFileMessage(self):
+        messageTitleTable = []
+        messageTable = []
+        with open("Message.csv", 'r') as file:
+            csvReader = csv.reader(file, delimiter=';')
+            header = next(csvReader)
+            for row in csvReader:
+                messageTitleTable.append(row[0])
+                messageTable.append(row[1])
+                print(row)
+        return messageTitleTable, messageTable
 
 
     def callback(self):
