@@ -3,6 +3,7 @@ import datetime
 from kivy.app import App
 from kivy.lang import Builder
 from kivymd.app import MDApp
+from kivymd.uix.list import OneLineListItem
 from kivymd.uix.picker import MDDatePicker, MDTimePicker
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.core.window import Window
@@ -33,7 +34,7 @@ class PlotWindow(Screen):
                 x.append(row[1])
                 print(row)
 
-        fig, ax = plt.subplots(1,1,figsize=(15,5))
+        fig, ax = plt.subplots(1, 1, figsize=(15, 5))
         ax.plot(x, y, color='r', linestyle='--', marker='.')
         ax.set_title('Puls')
         fig.patch.set_facecolor('xkcd:grey')
@@ -60,7 +61,7 @@ class PlotWindow(Screen):
                 x.append(row[1])
                 print(row)
 
-        fig, ax = plt.subplots(1,1,figsize=(15,5))
+        fig, ax = plt.subplots(1, 1, figsize=(15, 5))
         ax.plot(x, y, color='b', linestyle='--', marker='.')
         ax.set_title('Temperatura')
         fig.patch.set_facecolor('xkcd:grey')
@@ -90,7 +91,7 @@ class PlotWindow(Screen):
                 x.append(row[1])
                 print(row)
 
-        fig, ax = plt.subplots(1,1,figsize=(15,5))
+        fig, ax = plt.subplots(1, 1, figsize=(15, 5))
         ax.plot(x, y, color='g', linestyle='--', marker='.')
         ax.set_title('Saturacja')
         fig.patch.set_facecolor('xkcd:grey')
@@ -118,15 +119,22 @@ class AddMessageWindow(Screen):
         messageTitle = self.ids.msgTitle.text
         message = self.ids.msg.text
         myGUI.func(messageTitle, message)
-        print("tit and mess: ", messageTitle, message)
+        print("AddMessaheWindows: tit and mess: ", messageTitle, message)
 
 
 class MainWindow(Screen):
-    pass
+    def generateListOfMessage(self):
+        listWindow = ListWindow()
+        print("jestem w generateListOfMessage!")
+        listWindow.messageForList()
 
 
 class ListWindow(Screen):
-    pass
+    def messageForList(self):
+        myGUI = MyGUI()
+        # messageTitleTable, messageTable = myGUI.readFromFileMessage()
+        # print("List window: MesTit and mess: ", messageTitleTable, messageTable)
+        # self.ids.item1.add_widget(OneLineListItem(text=messageTitleTable[0]))
 
 
 class AddDataWindow(Screen):
@@ -170,11 +178,9 @@ class WindowManager(ScreenManager):
 
 
 class SingletonMeta(type):
-
     _instances = {}
 
     def __call__(cls, *args, **kwargs):
-
         if cls not in cls._instances:
             instance = super().__call__(*args, **kwargs)
             cls._instances[cls] = instance
@@ -196,6 +202,28 @@ class MyGUI(MDApp, metaclass=SingletonMeta):
         self._msgTitle = msgTitle
         self._msg = msg
 
+    def retfunc(self):
+        return self._msgTitle, self._msg
+
+    def saveForFileMessage(self):
+        with open('Message.csv', 'a', newline='') as csvFile:
+            writer = csv.writer(csvFile, delimiter=';')
+            print("saveForFile: ", self._msgTitle, self._msg)
+            writer.writerow([self._msgTitle, self._msg])
+
+    # def readFromFileMessage(self):
+    #     messageTitleTable = []
+    #     messageTable = []
+    #     with open("Message.csv", 'r') as file:
+    #         csvReader = csv.reader(file, delimiter=';')
+    #         header = next(csvReader)
+    #         for row in csvReader:
+    #             messageTitleTable.append(int(row[0]))
+    #             messageTable.append(row[1])
+    #             print(row)
+    #     return messageTitleTable, messageTable
+
+
     def callback(self):
         print("messageTitle and message: ", self._msgTitle, self._msg)
         self.notifier.notify(self._msgTitle, self._msg)
@@ -210,7 +238,7 @@ class MyGUI(MDApp, metaclass=SingletonMeta):
     def show_time_picker(self):
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "Blue"
-        from datetime import datetime
+        self.saveForFileMessage()
         time_dialog = MDTimePicker()
         time_dialog.bind(on_save=self.save_time, on_cancel=self.cancel_time)
         time_dialog.open()
