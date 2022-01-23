@@ -134,7 +134,8 @@ class ListWindow(Screen):
         myGUI = MyGUI()
         messageTitleTable, messageTable = myGUI.readFromFileMessage()
         print("List window: MesTit and mess: ", messageTitleTable, messageTable)
-        self.ids.item2.add_widget(OneLineListItem(text=messageTitleTable[0]))
+        for i in range(5):
+            self.ids.item1.add_widget(OneLineListItem(text=messageTitleTable[i]))
 
 
 class AddDataWindow(Screen):
