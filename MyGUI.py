@@ -3,7 +3,7 @@ import datetime
 from kivy.app import App
 from kivy.lang import Builder
 from kivymd.app import MDApp
-from kivymd.uix.list import TwoLineListItem
+from kivymd.uix.list import TwoLineListItem, OneLineListItem
 from kivymd.uix.picker import MDDatePicker, MDTimePicker
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.core.window import Window
@@ -135,10 +135,13 @@ class ListWindow(Screen):
         messageTitleTable, messageTable, counter = myGUI.readFromFileMessage()
         print("List window: MesTit and mess: ", messageTitleTable, messageTable)
         for i in range(counter):
-            self.ids.item.add_widget(TwoLineListItem(text=messageTitleTable[i], secondary_text=messageTable[i]))
+            self.ids.item.add_widget(TwoLineListItem(text=messageTitleTable[i], secondary_text=messageTable[i], on_release=self.release))
+            # self.ids.item.add_widget(TwoLineListItem(text=messageTitleTable[i], secondary_text=messageTable[i]))
 
-    def release(self):
-        print("Naciśnięto")
+
+    def release(self, onelinelistitem):
+        # self.ids.item.remove_widget(self.ids.list.children)
+        print("Naciśnięto", onelinelistitem.text)
 
 
 class AddDataWindow(Screen):
@@ -228,7 +231,6 @@ class MyGUI(MDApp, metaclass=SingletonMeta):
                 messageTable.append(row[1])
                 print(row)
         return messageTitleTable, messageTable, counter
-
 
     def callback(self):
         print("messageTitle and message: ", self._msgTitle, self._msg)
