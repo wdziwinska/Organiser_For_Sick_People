@@ -136,11 +136,9 @@ class ListWindow(Screen):
         print("List window: MesTit and mess: ", messageTitleTable, messageTable)
         for i in range(counter):
             self.ids.item.add_widget(TwoLineListItem(text=messageTitleTable[i], secondary_text=messageTable[i], on_release=self.release))
-            # self.ids.item.add_widget(TwoLineListItem(text=messageTitleTable[i], secondary_text=messageTable[i]))
-
 
     def release(self, onelinelistitem):
-        # self.ids.item.remove_widget(self.ids.list.children)
+        self.ids.item.remove_widget(onelinelistitem)
         print("Naciśnięto", onelinelistitem.text)
 
 
