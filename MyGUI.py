@@ -18,6 +18,7 @@ from datetime import datetime
 import csv
 
 Window.size = (750, 450)
+iterator = 0
 
 
 class PlotWindow(Screen):
@@ -130,12 +131,16 @@ class MainWindow(Screen):
 
 
 class ListWindow(Screen):
+    _iterator = iterator
     def messageForList(self):
-        myGUI = MyGUI()
-        messageTitleTable, messageTable, counter = myGUI.readFromFileMessage()
-        print("List window: MesTit and mess: ", messageTitleTable, messageTable)
-        for i in range(counter):
-            self.ids.item.add_widget(TwoLineListItem(text=messageTitleTable[i], secondary_text=messageTable[i], on_release=self.release))
+        print("Iterator: ", self._iterator)
+        if self._iterator < 1:
+            myGUI = MyGUI()
+            messageTitleTable, messageTable, counter = myGUI.readFromFileMessage()
+            print("List window: MesTit and mess: ", messageTitleTable, messageTable)
+            for i in range(counter):
+                self.ids.item.add_widget(TwoLineListItem(text=messageTitleTable[i], secondary_text=messageTable[i], on_release=self.release))
+        self._iterator = self._iterator + 1
 
     def release(self, onelinelistitem):
         self.ids.item.remove_widget(onelinelistitem)
