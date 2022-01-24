@@ -139,7 +139,23 @@ class ListWindow(Screen):
 
     def release(self, onelinelistitem):
         self.ids.item.remove_widget(onelinelistitem)
-        print("Naciśnięto", onelinelistitem.text)
+
+        updatedlist = []
+        with open("Message.csv", newline="") as f:
+            reader = csv.reader(f)
+            clicked = onelinelistitem.text +";"+onelinelistitem.secondary_text
+
+            for row in reader:
+                if row[0] != clicked:
+                    updatedlist.append(row)
+            print(updatedlist)
+            self.updatefile(updatedlist)
+
+    def updatefile(self, updatedlist):
+        with open("Message.csv", "w", newline="") as f:
+            Writer = csv.writer(f)
+            Writer.writerows(updatedlist)
+            print("File has been updated")
 
 
 class AddDataWindow(Screen):
