@@ -3,7 +3,7 @@ import datetime
 from kivy.app import App
 from kivy.lang import Builder
 from kivymd.app import MDApp
-from kivymd.uix.list import OneLineListItem
+from kivymd.uix.list import TwoLineListItem
 from kivymd.uix.picker import MDDatePicker, MDTimePicker
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.core.window import Window
@@ -132,10 +132,13 @@ class MainWindow(Screen):
 class ListWindow(Screen):
     def messageForList(self):
         myGUI = MyGUI()
-        messageTitleTable, messageTable = myGUI.readFromFileMessage()
+        messageTitleTable, messageTable, counter = myGUI.readFromFileMessage()
         print("List window: MesTit and mess: ", messageTitleTable, messageTable)
-        for i in range(5):
-            self.ids.item1.add_widget(OneLineListItem(text=messageTitleTable[i]))
+        for i in range(counter):
+            self.ids.item.add_widget(TwoLineListItem(text=messageTitleTable[i], secondary_text=messageTable[i]))
+
+    def release(self):
+        print("Naciśnięto")
 
 
 class AddDataWindow(Screen):
@@ -215,14 +218,16 @@ class MyGUI(MDApp, metaclass=SingletonMeta):
     def readFromFileMessage(self):
         messageTitleTable = []
         messageTable = []
+        counter = 0
         with open("Message.csv", 'r') as file:
             csvReader = csv.reader(file, delimiter=';')
             header = next(csvReader)
             for row in csvReader:
+                counter = counter + 1
                 messageTitleTable.append(row[0])
                 messageTable.append(row[1])
                 print(row)
-        return messageTitleTable, messageTable
+        return messageTitleTable, messageTable, counter
 
 
     def callback(self):
