@@ -1,6 +1,11 @@
-import datetime
+import asyncio
+import threading
+import time as t
+from asyncio import Event
+from datetime import datetime, timedelta
+from time import sleep
 
-from kivy.app import App
+
 from kivy.lang import Builder
 from kivymd.app import MDApp
 from kivymd.uix.list import TwoLineListItem, OneLineListItem
@@ -16,7 +21,6 @@ from Reminder import Reminder
 from matplotlib import pyplot as plt
 from kivy.garden.matplotlib.backend_kivyagg import FigureCanvasKivyAgg
 
-from datetime import datetime
 import csv
 
 Window.size = (750, 450)
@@ -207,26 +211,54 @@ class MyGUI(MDApp, metaclass=SingletonMeta):
 
 
         if str(self._date_range) != '[]': #jezeli nie jest pusty (jezeli podano przedział dat)
+            print("Relizuję przedział!")
             start_date_range = str(self._date_range[0])
             end_date_range = str(self._date_range[-1])
 
             day_int_start_date_range = int(start_date_range[8:10])
             day_int_end_date_range = int(end_date_range[8:10])
             day_int_currentDate = int(currentDateString[8:10])
+            month_int_start = int(start_date_range[5:7])
+            year_int_start = int(start_date_range[0:4])
+            print("month: ", month_int_start)
+            print("year: ", year_int_start)
+
+            reminder.deactivate()
 
             if currentDateString == start_date_range or currentDateString == end_date_range:
+                print("if")
                 reminder.activate()
             elif day_int_start_date_range < day_int_currentDate < day_int_end_date_range:
+                print("elif 1")
                 day = day_int_start_date_range
                 while day <= day_int_currentDate:
                     if day == day_int_currentDate:
                         reminder.activate()
                     day = day + 1
+            elif day_int_currentDate < day_int_start_date_range:
+
+                print("elif 2")
+                sleep_until = start_date_range
+                print("Czekam do dnia: ", sleep_until)
+                reminder.deactivate()
+
+                # # time.sleep(time.mktime(time.strptime(sleep_until, "%Y-%m-%d")))
+                #
+                # # tomorrow = datetime.replace(datetime.now() + timedelta(days=1),
+                # #                                      hour=0, minute=0, second=0)
+                # # delta = tomorrow - datetime.now()
+                # # t.sleep(delta.seconds)
+                #
+                # # event = threading.Event()
+                # # event.wait()
+                #
+                # await asyncio.sleep(60)
             else:
                 print("daty przedziału różnią się od dzisiejszej daty")
                 reminder.deactivate()
 
         else: #jeżeli podano jeden dzień (przedział jest pusty)
+            print("Relizuję pojedynczy dzień!")
             if currentDateString != str(self._date):
                 print("daty różnią się od siebie")
                 reminder.deactivate()
