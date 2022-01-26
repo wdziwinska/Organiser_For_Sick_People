@@ -182,9 +182,6 @@ class MyGUI(MDApp, metaclass=SingletonMeta):
         self._msgTitle = msgTitle
         self._msg = msg
 
-    def retfunc(self):
-        return self._msgTitle, self._msg
-
     def saveForFileMessage(self):
         with open('Message.csv', 'a', newline='') as csvFile:
             writer = csv.writer(csvFile, delimiter=';')
@@ -195,8 +192,23 @@ class MyGUI(MDApp, metaclass=SingletonMeta):
         print("messageTitle and message: ", self._msgTitle, self._msg)
         self.notifier.notify(self._msgTitle, self._msg)
 
+    def retDate(self, date, date_range):
+        self._date = date
+        self._date_range = date_range
+
     def save_time(self, instance, time):
         reminder = Reminder(str(time), self.callback)
+        reminder.activate()
+
+        currentDate = datetime.now()
+        currentDateString = currentDate.strftime("%Y-%m-%d")
+        print("current_date_string", currentDateString)
+        print("self._date: ", str(self._date))
+        if currentDateString != str(self._date):
+            print("daty różnią się od siebie")
+            reminder.deactivate()
+        else:
+            reminder.activate()
         print(str(time))
 
     def cancel_time(self, instance, time):
@@ -212,8 +224,9 @@ class MyGUI(MDApp, metaclass=SingletonMeta):
 
     # dodawanie przypomnienia w przedziale czasowym!!
     def save_date(self, instance, value, date_range):
-        # print(instance, value, date_range)
+        print(instance, value, date_range)
         print(str(value))
+        self.retDate(value, date_range)
         # self.root.ids.date_label.text = str(value)
         # self.root.ids.date_label.text = f'{str(date_range[0])} - {str(date_range[-1])}'
         self.show_time_picker()
@@ -227,6 +240,3 @@ class MyGUI(MDApp, metaclass=SingletonMeta):
         date_dialog = MDDatePicker(mode="range")
         date_dialog.bind(on_save=self.save_date, on_cancel=self.cancel_date)
         date_dialog.open()
-
-    def presser(self, pressed, list_id):
-        pressed.text = f"You pressed {list_id}"
