@@ -8,6 +8,8 @@ from kivymd.uix.picker import MDDatePicker, MDTimePicker
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.core.window import Window
 
+from Plots import Plots
+from ReadCsvFile import ReadCsvFile
 from Notifier import Notifier
 from Reminder import Reminder
 
@@ -27,89 +29,42 @@ class PlotWindow(Screen):
         x = []
         y = []
 
-        with open("PulseDate.csv", 'r') as file:
-            csvReader = csv.reader(file, delimiter=';')
-            header = next(csvReader)
-            for row in csvReader:
-                y.append(int(row[0]))
-                x.append(row[1])
-                print(row)
+        csvFile = ReadCsvFile()
+        x, y = csvFile.readFromPulseDate()
 
-        fig, ax = plt.subplots(1, 1, figsize=(15, 5))
-        ax.plot(x, y, color='r', linestyle='--', marker='.')
-        ax.set_title('Puls')
-        fig.patch.set_facecolor('xkcd:grey')
-        ax.set_facecolor('xkcd:dark grey')
-        # ax.set(xlabel='Data', ylabel='Puls')
-        xticks = ax.get_xticks()
-        if len(xticks) >= 10:
-            ax.set_xticks(xticks[::len(xticks) // 5])  # set new tick positions
-        ax.tick_params(axis='x', rotation=12, labelsize=7)  # set tick rotation
+        plots = Plots()
+        plots.drawPlot('Puls', x, y, 'r')
 
-        box = self.ids.box
-        box.clear_widgets()
-        box.add_widget(FigureCanvasKivyAgg(plt.gcf()))
+        self.showPlots()
 
     def temperaturePlot(self):
         x = []
         y = []
 
-        with open("TemperatureData.csv", 'r') as file:
-            csvReader = csv.reader(file, delimiter=';')
-            header = next(csvReader)
-            for row in csvReader:
-                y.append(float(row[0]))
-                x.append(row[1])
-                print(row)
+        csvFile = ReadCsvFile()
+        x, y = csvFile.readFromTemperatureData()
 
-        fig, ax = plt.subplots(1, 1, figsize=(15, 5))
-        ax.plot(x, y, color='b', linestyle='--', marker='.')
-        ax.set_title('Temperatura')
-        fig.patch.set_facecolor('xkcd:grey')
-        ax.set_facecolor('xkcd:dark grey')
-        # ax.set(xlabel='Data', ylabel='Puls')
+        plots = Plots()
+        plots.drawPlot('Temperatura', x, y, 'b')
 
-        xticks = ax.get_xticks()
-
-        if len(xticks) >= 10:
-            ax.set_xticks(xticks[::len(xticks) // 5])  # set new tick positions
-
-        ax.tick_params(axis='x', rotation=12, labelsize=7)  # set tick rotation
-
-        box = self.ids.box
-        box.clear_widgets()
-        box.add_widget(FigureCanvasKivyAgg(plt.gcf()))
+        self.showPlots()
 
     def saturationPlot(self):
         x = []
         y = []
 
-        with open("SaturationData.csv", 'r') as file:
-            csvReader = csv.reader(file, delimiter=';')
-            header = next(csvReader)
-            for row in csvReader:
-                y.append(float(row[0]))
-                x.append(row[1])
-                print(row)
+        csvFile = ReadCsvFile()
+        x, y = csvFile.readFromSaturationData()
 
-        fig, ax = plt.subplots(1, 1, figsize=(15, 5))
-        ax.plot(x, y, color='g', linestyle='--', marker='.')
-        ax.set_title('Saturacja')
-        fig.patch.set_facecolor('xkcd:grey')
-        ax.set_facecolor('xkcd:dark grey')
-        # ax.set(xlabel='Data', ylabel='Puls')
+        plots = Plots()
+        plots.drawPlot('Saturacja', x, y, 'g')
 
-        xticks = ax.get_xticks()
+        self.showPlots()
 
-        if len(xticks) >= 10:
-            ax.set_xticks(xticks[::len(xticks) // 5])  # set new tick positions
-
-        ax.tick_params(axis='x', rotation=12, labelsize=7)  # set tick rotation
-
+    def showPlots(self):
         box = self.ids.box
         box.clear_widgets()
         box.add_widget(FigureCanvasKivyAgg(plt.gcf()))
-
 
 class AddMessageWindow(Screen):
     def pressButtonZatwierdz(self):
@@ -126,7 +81,6 @@ class AddMessageWindow(Screen):
 class MainWindow(Screen):
     def generateListOfMessage(self):
         listWindow = ListWindow()
-        print("jestem w generateListOfMessage!")
         listWindow.messageForList()
 
 
@@ -135,8 +89,8 @@ class ListWindow(Screen):
     def messageForList(self):
         print("Iterator: ", self._iterator)
         if self._iterator < 1:
-            myGUI = MyGUI()
-            messageTitleTable, messageTable, counter = myGUI.readFromFileMessage()
+            csvFile = ReadCsvFile()
+            messageTitleTable, messageTable, counter = csvFile.readFromFileMessage()
             print("List window: MesTit and mess: ", messageTitleTable, messageTable)
             for i in range(counter):
                 self.ids.item.add_widget(TwoLineListItem(text=messageTitleTable[i], secondary_text=messageTable[i], on_release=self.release))
@@ -236,20 +190,6 @@ class MyGUI(MDApp, metaclass=SingletonMeta):
             writer = csv.writer(csvFile, delimiter=';')
             print("saveForFile: ", self._msgTitle, self._msg)
             writer.writerow([self._msgTitle, self._msg])
-
-    def readFromFileMessage(self):
-        messageTitleTable = []
-        messageTable = []
-        counter = 0
-        with open("Message.csv", 'r') as file:
-            csvReader = csv.reader(file, delimiter=';')
-            header = next(csvReader)
-            for row in csvReader:
-                counter = counter + 1
-                messageTitleTable.append(row[0])
-                messageTable.append(row[1])
-                print(row)
-        return messageTitleTable, messageTable, counter
 
     def callback(self):
         print("messageTitle and message: ", self._msgTitle, self._msg)

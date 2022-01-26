@@ -16,7 +16,7 @@ class Main(object):
 
     myGUI = MyGUI()
 
-    print(id(myGUI))
+    # print(id(myGUI))
 
     myGUI.build()
     myGUI.run()
