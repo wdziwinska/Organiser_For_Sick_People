@@ -195,21 +195,43 @@ class MyGUI(MDApp, metaclass=SingletonMeta):
     def retDate(self, date, date_range):
         self._date = date
         self._date_range = date_range
+        print("date: ", str(self._date))
+        print("date_range: ", str(self._date_range))
 
     def save_time(self, instance, time):
         reminder = Reminder(str(time), self.callback)
-        reminder.activate()
 
+        print(str(time))
         currentDate = datetime.now()
         currentDateString = currentDate.strftime("%Y-%m-%d")
-        print("current_date_string", currentDateString)
-        print("self._date: ", str(self._date))
-        if currentDateString != str(self._date):
-            print("daty różnią się od siebie")
-            reminder.deactivate()
-        else:
-            reminder.activate()
-        print(str(time))
+
+
+        if str(self._date_range) != '[]': #jezeli nie jest pusty (jezeli podano przedział dat)
+            start_date_range = str(self._date_range[0])
+            end_date_range = str(self._date_range[-1])
+
+            day_int_start_date_range = int(start_date_range[8:10])
+            day_int_end_date_range = int(end_date_range[8:10])
+            day_int_currentDate = int(currentDateString[8:10])
+
+            if currentDateString == start_date_range or currentDateString == end_date_range:
+                reminder.activate()
+            elif day_int_start_date_range < day_int_currentDate < day_int_end_date_range:
+                day = day_int_start_date_range
+                while day <= day_int_currentDate:
+                    if day == day_int_currentDate:
+                        reminder.activate()
+                    day = day + 1
+            else:
+                print("daty przedziału różnią się od dzisiejszej daty")
+                reminder.deactivate()
+
+        else: #jeżeli podano jeden dzień (przedział jest pusty)
+            if currentDateString != str(self._date):
+                print("daty różnią się od siebie")
+                reminder.deactivate()
+            else:
+                reminder.activate()
 
     def cancel_time(self, instance, time):
         print("You clicked cancel!")
@@ -222,10 +244,7 @@ class MyGUI(MDApp, metaclass=SingletonMeta):
         time_dialog.bind(on_save=self.save_time, on_cancel=self.cancel_time)
         time_dialog.open()
 
-    # dodawanie przypomnienia w przedziale czasowym!!
     def save_date(self, instance, value, date_range):
-        print(instance, value, date_range)
-        print(str(value))
         self.retDate(value, date_range)
         # self.root.ids.date_label.text = str(value)
         # self.root.ids.date_label.text = f'{str(date_range[0])} - {str(date_range[-1])}'
