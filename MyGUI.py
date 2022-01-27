@@ -180,6 +180,8 @@ class SingletonMeta(type):
 class MyGUI(MDApp, metaclass=SingletonMeta):
     notifier = Notifier()
     sm = None
+    _list_await = ['0']
+    i = 0
 
     def build(self):
         self.theme_cls.theme_style = "Dark"
@@ -198,17 +200,31 @@ class MyGUI(MDApp, metaclass=SingletonMeta):
             writer.writerow([self._msgTitle, self._msg])
 
     def callback(self):
-        self.notifier.notify(self._msgTitle, self._msg)
+        self.notifier.notify( self._list_await[0],  self._list_await[1])
+        for j in "lists":
+            self._list_await.pop(0)
+            self.i = self.i - 1
+
         print("Wyświetlono przypomnienie")
+        print("table await: ", self._list_await)
 
     def retDate(self, date, date_range):
         self._date = date
         self._date_range = date_range
 
     def save_time(self, instance, time):
+        self._time = time
         print("time: ", str(time))
+        self.saveForFileMessage()
         reminder = Reminder(str(time), self.callback)
         reminder.setReminders(self._date, self._date_range)
+        self._list_await.insert(self.i, self._msgTitle)
+        self._list_await.insert(self.i+1, self._msg)
+        self._list_await.insert(self.i+2, self._date)
+        self._list_await.insert(self.i+3, self._date_range)
+        self._list_await.insert(self.i+4, self._time)
+        self.i = self.i + 5
+        print("table await: ", self._list_await)
 
     def cancel_time(self, instance, time):
         print("You clicked cancel!")
@@ -216,7 +232,6 @@ class MyGUI(MDApp, metaclass=SingletonMeta):
     def show_time_picker(self):
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "Blue"
-        self.saveForFileMessage()
         time_dialog = MDTimePicker()
         time_dialog.bind(on_save=self.save_time, on_cancel=self.cancel_time)
         time_dialog.open()
