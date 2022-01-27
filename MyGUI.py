@@ -204,66 +204,7 @@ class MyGUI(MDApp, metaclass=SingletonMeta):
 
     def save_time(self, instance, time):
         reminder = Reminder(str(time), self.callback)
-
-        print(str(time))
-        currentDate = datetime.now()
-        currentDateString = currentDate.strftime("%Y-%m-%d")
-
-
-        if str(self._date_range) != '[]': #jezeli nie jest pusty (jezeli podano przedział dat)
-            print("Relizuję przedział!")
-            start_date_range = str(self._date_range[0])
-            end_date_range = str(self._date_range[-1])
-
-            day_int_start_date_range = int(start_date_range[8:10])
-            day_int_end_date_range = int(end_date_range[8:10])
-            day_int_currentDate = int(currentDateString[8:10])
-            month_int_start = int(start_date_range[5:7])
-            year_int_start = int(start_date_range[0:4])
-            print("month: ", month_int_start)
-            print("year: ", year_int_start)
-
-            reminder.deactivate()
-
-            if currentDateString == start_date_range or currentDateString == end_date_range:
-                print("if")
-                reminder.activate()
-            elif day_int_start_date_range < day_int_currentDate < day_int_end_date_range:
-                print("elif 1")
-                day = day_int_start_date_range
-                while day <= day_int_currentDate:
-                    if day == day_int_currentDate:
-                        reminder.activate()
-                    day = day + 1
-            elif day_int_currentDate < day_int_start_date_range:
-
-                print("elif 2")
-                sleep_until = start_date_range
-                print("Czekam do dnia: ", sleep_until)
-                reminder.deactivate()
-
-                # # time.sleep(time.mktime(time.strptime(sleep_until, "%Y-%m-%d")))
-                #
-                # # tomorrow = datetime.replace(datetime.now() + timedelta(days=1),
-                # #                                      hour=0, minute=0, second=0)
-                # # delta = tomorrow - datetime.now()
-                # # t.sleep(delta.seconds)
-                #
-                # # event = threading.Event()
-                # # event.wait()
-                #
-                # await asyncio.sleep(60)
-            else:
-                print("daty przedziału różnią się od dzisiejszej daty")
-                reminder.deactivate()
-
-        else: #jeżeli podano jeden dzień (przedział jest pusty)
-            print("Relizuję pojedynczy dzień!")
-            if currentDateString != str(self._date):
-                print("daty różnią się od siebie")
-                reminder.deactivate()
-            else:
-                reminder.activate()
+        reminder.setReminders(self._date, self._date_range)
 
     def cancel_time(self, instance, time):
         print("You clicked cancel!")
