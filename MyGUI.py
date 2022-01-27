@@ -80,6 +80,8 @@ class AddMessageWindow(Screen):
         message = self.ids.msg.text
         myGUI.func(messageTitle, message)
         print("Message Title and Message: ", messageTitle, ";", message)
+        self.ids.msgTitle.text = ""
+        self.ids.msg.text = ""
 
 
 class MainWindow(Screen):
@@ -133,6 +135,7 @@ class AddDataWindow(Screen):
                 now = datetime.now()
                 dateTime_string = now.strftime("%d/%m/%Y %H:%M")
                 writer.writerow([int(pulseValue), dateTime_string])
+        self.ids.pulseValue.text = ""
 
     def addNewTemperatureValue(self):
         temperatureValue = self.ids.temperatureValue.text
@@ -145,6 +148,8 @@ class AddDataWindow(Screen):
                 dateTime_string = now.strftime("%d/%m/%Y %H:%M")
                 writer.writerow([float(temperatureValue), dateTime_string])
 
+        self.ids.temperatureValue.text = ""
+
     def addNewSaturationValue(self):
         saturationValue = self.ids.saturationValue.text
         print(saturationValue)
@@ -156,6 +161,7 @@ class AddDataWindow(Screen):
                 dateTime_string = now.strftime("%d/%m/%Y %H:%M")
                 writer.writerow([int(saturationValue), dateTime_string])
 
+        self.ids.saturationValue.text = ""
 
 class WindowManager(ScreenManager):
     pass
