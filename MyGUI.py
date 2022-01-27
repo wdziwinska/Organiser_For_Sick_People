@@ -201,7 +201,7 @@ class MyGUI(MDApp, metaclass=SingletonMeta):
 
     def callback(self):
         self.notifier.notify( self._list_await[0],  self._list_await[1])
-        for j in "lists":
+        for j in "li":
             self._list_await.pop(0)
             self.i = self.i - 1
 
@@ -220,10 +220,7 @@ class MyGUI(MDApp, metaclass=SingletonMeta):
         reminder.setReminders(self._date, self._date_range)
         self._list_await.insert(self.i, self._msgTitle)
         self._list_await.insert(self.i+1, self._msg)
-        self._list_await.insert(self.i+2, self._date)
-        self._list_await.insert(self.i+3, self._date_range)
-        self._list_await.insert(self.i+4, self._time)
-        self.i = self.i + 5
+        self.i = self.i + 2
         print("table await: ", self._list_await)
 
     def cancel_time(self, instance, time):
