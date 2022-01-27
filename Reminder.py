@@ -22,7 +22,6 @@ class Reminder:
         self._active = False
 
     def setReminders(self, date, date_range):
-        # print(str(time))
         currentDate = datetime.now()
         currentDateString = currentDate.strftime("%Y-%m-%d")
 
@@ -30,33 +29,26 @@ class Reminder:
             print("Relizuję przedział!")
             start_date_range = str(date_range[0])
             end_date_range = str(date_range[-1])
+            print("date_range: ", f'{str(date_range[0])} - {str(date_range[-1])}')
 
             day_int_start_date_range = int(start_date_range[8:10])
             day_int_end_date_range = int(end_date_range[8:10])
             day_int_currentDate = int(currentDateString[8:10])
-            month_int_start = int(start_date_range[5:7])
-            # month_int_currentDate = int(currentDateString[5:7])
-            year_int_start = int(start_date_range[0:4])
-            print("month: ", month_int_start)
-            print("year: ", year_int_start)
 
             self.deactivate()
 
             if currentDateString == start_date_range or currentDateString == end_date_range:
-                print("if")
                 self.activate()
+
             elif day_int_start_date_range < day_int_currentDate < day_int_end_date_range:
-                print("elif 1")
                 day = day_int_start_date_range
                 while day <= day_int_currentDate:
                     if day == day_int_currentDate:
                         self.activate()
                     day = day + 1
-            elif day_int_currentDate < day_int_start_date_range:
 
-                print("elif 2")
-                sleep_until = start_date_range
-                print("Czekam do dnia: ", sleep_until)
+            elif day_int_currentDate < day_int_start_date_range:
+                print("Czekam do dnia: ", start_date_range)
                 self.deactivate()
                 # await asyncio.sleep(time.mktime(time.strptime(sleep_until, "%Y-%m-%d")))
 
@@ -77,9 +69,11 @@ class Reminder:
                 self.deactivate()
 
         else:  # jeżeli podano jeden dzień (przedział jest pusty)
+            print("date: ", str(date))
             print("Relizuję pojedynczy dzień!")
             if currentDateString != str(date):
                 print("daty różnią się od siebie")
                 self.deactivate()
             else:
                 self.activate()
+                print("aktywowano")

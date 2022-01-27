@@ -74,12 +74,12 @@ class AddMessageWindow(Screen):
     def pressButtonZatwierdz(self):
         myGUI = MyGUI()
         myGUI.show_date_picker()
-        print(id(myGUI))
+        # print(id(myGUI))
 
         messageTitle = self.ids.msgTitle.text
         message = self.ids.msg.text
         myGUI.func(messageTitle, message)
-        print("AddMessaheWindows: tit and mess: ", messageTitle, message)
+        print("Message Title and Message: ", messageTitle, ";", message)
 
 
 class MainWindow(Screen):
@@ -91,31 +91,32 @@ class MainWindow(Screen):
 class ListWindow(Screen):
     _iterator = iterator
     def messageForList(self):
-        print("Iterator: ", self._iterator)
         if self._iterator < 1:
             csvFile = ReadCsvFile()
             messageTitleTable, messageTable, counter = csvFile.readFromFileMessage()
-            print("List window: MesTit and mess: ", messageTitleTable, messageTable)
             for i in range(counter):
                 self.ids.item.add_widget(TwoLineListItem(text=messageTitleTable[i], secondary_text=messageTable[i], on_release=self.release))
-        self._iterator = self._iterator + 1
+            self._iterator = self._iterator + 1
+        else:
+            self.ids.item.clear_widgets()
+            self._iterator = 0
 
     def release(self, onelinelistitem):
         self.ids.item.remove_widget(onelinelistitem)
 
         updatedlist = []
-        with open("Message.csv", newline="") as f:
+        with open("Message.csv", newline="", encoding='utf-8') as f:
             reader = csv.reader(f)
             clicked = onelinelistitem.text +";"+onelinelistitem.secondary_text
 
             for row in reader:
                 if row[0] != clicked:
                     updatedlist.append(row)
-            print(updatedlist)
+            # print(updatedlist)
             self.updatefile(updatedlist)
 
     def updatefile(self, updatedlist):
-        with open("Message.csv", "w", newline="") as f:
+        with open("Message.csv", "w", newline="", encoding='utf-8') as f:
             Writer = csv.writer(f)
             Writer.writerows(updatedlist)
             print("File has been updated")
@@ -124,8 +125,7 @@ class ListWindow(Screen):
 class AddDataWindow(Screen):
     def addNewPulseValue(self):
         pulseValue = self.ids.pulseValue.text
-        print("pulseValue:", pulseValue)
-        print(type(pulseValue))
+        print(pulseValue)
 
         if pulseValue is not '':
             with open('PulseDate.csv', 'a', newline='') as csvFile:
@@ -187,22 +187,20 @@ class MyGUI(MDApp, metaclass=SingletonMeta):
         self._msg = msg
 
     def saveForFileMessage(self):
-        with open('Message.csv', 'a', newline='') as csvFile:
+        with open('Message.csv', 'a', newline='', encoding='utf-8') as csvFile:
             writer = csv.writer(csvFile, delimiter=';')
-            print("saveForFile: ", self._msgTitle, self._msg)
             writer.writerow([self._msgTitle, self._msg])
 
     def callback(self):
-        print("messageTitle and message: ", self._msgTitle, self._msg)
         self.notifier.notify(self._msgTitle, self._msg)
+        print("Wyświetlono przypomnienie")
 
     def retDate(self, date, date_range):
         self._date = date
         self._date_range = date_range
-        print("date: ", str(self._date))
-        print("date_range: ", str(self._date_range))
 
     def save_time(self, instance, time):
+        print("time: ", str(time))
         reminder = Reminder(str(time), self.callback)
         reminder.setReminders(self._date, self._date_range)
 
@@ -219,7 +217,6 @@ class MyGUI(MDApp, metaclass=SingletonMeta):
 
     def save_date(self, instance, value, date_range):
         self.retDate(value, date_range)
-        # self.root.ids.date_label.text = str(value)
         # self.root.ids.date_label.text = f'{str(date_range[0])} - {str(date_range[-1])}'
         self.show_time_picker()
 
