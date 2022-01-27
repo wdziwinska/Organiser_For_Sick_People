@@ -70,6 +70,7 @@ class PlotWindow(Screen):
         box.clear_widgets()
         box.add_widget(FigureCanvasKivyAgg(plt.gcf()))
 
+
 class AddMessageWindow(Screen):
     def pressButtonZatwierdz(self):
         myGUI = MyGUI()
@@ -121,7 +122,7 @@ class ListWindow(Screen):
         with open("Message.csv", "w", newline="", encoding='utf-8') as f:
             Writer = csv.writer(f)
             Writer.writerows(updatedlist)
-            print("File has been updated")
+            # print("File has been updated")
 
 
 class AddDataWindow(Screen):
@@ -206,7 +207,7 @@ class MyGUI(MDApp, metaclass=SingletonMeta):
             self.i = self.i - 1
 
         print("Wyświetlono przypomnienie")
-        print("table await: ", self._list_await)
+        # print("table await: ", self._list_await)
 
     def retDate(self, date, date_range):
         self._date = date
@@ -221,7 +222,7 @@ class MyGUI(MDApp, metaclass=SingletonMeta):
         self._list_await.insert(self.i, self._msgTitle)
         self._list_await.insert(self.i+1, self._msg)
         self.i = self.i + 2
-        print("table await: ", self._list_await)
+        # print("table await: ", self._list_await)
 
     def cancel_time(self, instance, time):
         print("You clicked cancel!")
