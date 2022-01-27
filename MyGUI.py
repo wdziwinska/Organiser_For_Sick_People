@@ -1,14 +1,8 @@
-import asyncio
-import threading
-import time as t
-from asyncio import Event
-from datetime import datetime, timedelta
-from time import sleep
-
+from datetime import datetime
 
 from kivy.lang import Builder
 from kivymd.app import MDApp
-from kivymd.uix.list import TwoLineListItem, OneLineListItem
+from kivymd.uix.list import TwoLineListItem
 from kivymd.uix.picker import MDDatePicker, MDTimePicker
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.core.window import Window
