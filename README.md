@@ -2,9 +2,21 @@
 
 Application allows the user to control health and notifies about important things like medical appointment or taking medicines regularly. 
 
-The user can schedule reminder after clicking first button "Przypomnienie". The user can schedule reminder after clicking first button "Przypomnienie" or a user can check list of reminders  after clicking button "Kalendarz". The button "Wykresy" allows control helath thanks to charts. 
+The user can schedule reminder after press first button "Przypomnienie" or a user can check list of reminders  after clicking button "Kalendarz". The button "Wykresy" allows control helath thanks to charts. 
 
 <img src="https://user-images.githubusercontent.com/55066543/152391392-7a54bab6-c2be-4996-a3bc-ab41809c3cde.png" width="700" height="450" >
+
+## Installing packages
+
+* kivy
+* schedule
+* kivymd
+* player
+* datetime
+* csv
+* matplotlib
+
+## Description of the application's activities
 
 After clicking button "Przypomnienia" user can type title of reminder and content. Clicking the button "Zatwierdź" causes the date picker to appear.
 
