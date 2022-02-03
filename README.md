@@ -23,3 +23,15 @@ When the set time and date of the reminder will be the same like the current tim
 
 <img src="https://user-images.githubusercontent.com/55066543/152395933-d744befe-e713-4283-953b-747ab40cb840.png" width="350" height="120" >
 
+The user can check list of reminders after press button "Kalendarz". The reminder can be remove from list after press.  
+
+<img src="https://user-images.githubusercontent.com/55066543/152397670-5277a126-bdde-44fe-b741-b4a11bb5cfcc.png" width="700" height="450" >
+<img src="https://user-images.githubusercontent.com/55066543/152397868-6709897e-0199-41a2-8bd1-16014c21ab33.png" width="700" height="450" >
+
+After press button "Wykresy" the user can adds values about his body temperature, pulse and saturation.
+<img src="https://user-images.githubusercontent.com/55066543/152398571-4f6f86e3-12a0-46a3-8d42-edcf68ccf86a.png" width="700" height="450" >
+
+From the entered data the charts are being created
+<img src="https://user-images.githubusercontent.com/55066543/152399110-b6d51491-3f66-4e20-af32-b4c019bf4ba8.png" width="700" height="450" >
+<img src="https://user-images.githubusercontent.com/55066543/152399198-5ec0de97-3f2d-44d7-9e8d-4e71a9b10424.png" width="700" height="450" >
+<img src="https://user-images.githubusercontent.com/55066543/152399215-67cbf4ec-1919-4899-98d8-b3ccb71e80de.png" width="700" height="450" >
