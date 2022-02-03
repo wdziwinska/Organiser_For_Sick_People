@@ -2,7 +2,7 @@
 
 Application allows the user to control health and notifies about important things like medical appointment or taking medicines regularly. 
 
-The user can schedule reminder after press first button "Przypomnienie" or a user can check list of reminders  after clicking button "Kalendarz". The button "Wykresy" allows control helath thanks to charts. 
+The user can schedule reminder after press first button "Ustaw Przypomnienie" or a user can check list of reminders  after clicking button "Kalendarz". The button "Wykresy" allows control helath thanks to charts. 
 
 <img src="https://user-images.githubusercontent.com/55066543/152391392-7a54bab6-c2be-4996-a3bc-ab41809c3cde.png" width="700" height="450" >
 
@@ -18,7 +18,7 @@ The user can schedule reminder after press first button "Przypomnienie" or a use
 
 ## Description of the application's activities
 
-After clicking button "Przypomnienia" user can type title of reminder and content. Clicking the button "Zatwierdź" causes the date picker to appear.
+After press button "Przypomnienia" user can type title of reminder and content. Clicking the button "Zatwierdź" causes the date picker to appear.
 
 <img src="https://user-images.githubusercontent.com/55066543/152391637-91ec1c39-3d9b-481a-bf63-e45bab3be8ae.png" width="700" height="450" >
 
